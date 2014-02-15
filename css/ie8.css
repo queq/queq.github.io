@@ -1,5 +1,5 @@
 /*
-	Prologue 1.2 by HTML5 UP
+	Astral 2.5 by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
@@ -8,61 +8,30 @@
 /* Basic                                                                         */
 /*********************************************************************************/
 
-	/* Forms */
+	body
+	{
+		background: #e0a391;
+	}
 
-		form
+		body:before,
+		body:after
 		{
+			display: none;
 		}
-		
-			form input.text,
-			form select,
-			form textarea
-			{
-				-ms-behavior: url('css/PIE.htc');
-			}
-			
-	/* Buttons */
-		
-		.button
-		{
-			-ms-behavior: url('css/PIE.htc');
-		}
-		
-/*********************************************************************************/
-/* Header                                                                        */
-/*********************************************************************************/
 
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+	
 	#nav
 	{
 	}
 	
-		#nav ul
+		#nav a
 		{
 		}
 		
-			#nav ul li
+			#nav a span
 			{
+				display: none;
 			}
-			
-				#nav ul li a
-				{
-					color: #888;
-				}
-
-					#nav ul li a.active
-					{
-						background: #1C2022;
-					}
-
-/*********************************************************************************/
-/* Side Panel                                                                    */
-/*********************************************************************************/
-
-	#sidePanelToggle
-	{
-	}
-	
-		#sidePanelToggle .toggle
-		{
-			background-color: #888;
-		}
