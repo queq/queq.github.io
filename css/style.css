@@ -102,7 +102,7 @@
 
 		a:hover
 		{
-			color: #E27689;
+			color: #2ecc40;
 			border-bottom-color: rgba(255,255,255,0);
 		}
 
@@ -1054,7 +1054,7 @@
 
 							#nav ul li a.active span:before
 							{
-								color: #E27689;
+								color: #2ecc40;
 							}
 
 /*********************************************************************************/
