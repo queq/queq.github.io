@@ -29,7 +29,7 @@
 
 	h1,h2,h3,h4,h5,h6
 	{
-		font-weight: 175;
+		font-weight: 200;
 		color: #666;
 		line-height: 1.5em;
 	}
@@ -976,7 +976,7 @@
 			position: relative;
 			color: #666;
 			font-weight: 600;
-			font-size: 1em;
+			font-size: .75em;
 			line-height: 1em;
 		}
 	
