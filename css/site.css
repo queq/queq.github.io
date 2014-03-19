@@ -7,17 +7,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;  
 }
 /* ----------------------------------
- * home
- * ---------------------------------- */
-.home {
-    background: url(../img/index.png) no-repeat 50% 100px;    
-}
-@media (max-width: 767px) {
-    .home {
-        background: none;
-    }   
-}
-/* ----------------------------------
  * icons
  * ---------------------------------- */
 @font-face {
