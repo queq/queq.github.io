@@ -6406,13 +6406,13 @@ blockquote{
 }
 
 .btn-info,.btn-info.active,.btn-info.disabled,.btn-info:active,.btn-info[disabled]{
-	border-color:#e74c3c;
-	background-color:#e74c3c
+	border-color:#4FC1E9;
+	background-color:#4FC1E9
 }
 
 .btn-info:focus,.btn-info:hover,.open .dropdown-toggle.btn-info{
-	border-color:#c0392b;
-	background-color:#c0392b
+	border-color:#3BAFDA;
+	background-color:#3BAFDA
 }
 
 .btn-success,.btn-success.active,.btn-success.disabled,.btn-success:active,.btn-success[disabled]{
@@ -6542,8 +6542,8 @@ blockquote{
 }
 
 .badge-info,.label-info{
-	border-color:#e74c3c;
-	background-color:#e74c3c
+	border-color:#4FC1E9;
+	background-color:#4FC1E9
 }
 
 .tooltip-inner{
@@ -6616,7 +6616,7 @@ blockquote{
 }
 
 .progress .progress-bar-info{
-	background-color:#e74c3c
+	background-color:#4FC1E9
 }
 
 .progress .progress-bar-warning{
@@ -7270,8 +7270,8 @@ blockquote{
 }
 
 .navbar-default{
-	background-color:#e74c3c;
-	border-color:#e74c3c
+	background-color:#4FC1E9;
+	border-color:#4FC1E9
 }
 
 .navbar-default .btn-link,.navbar-default .navbar-brand,.navbar-default .navbar-link{
@@ -7293,7 +7293,7 @@ blockquote{
 
 .navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:focus,.navbar-default .navbar-nav>.active>a:hover{
 	color:#fff;
-	background-color:#c0392b
+	background-color:#3BAFDA
 }
 
 .navbar-default .btn-link[disabled]:focus,.navbar-default .btn-link[disabled]:hover,.navbar-default .navbar-nav>.disabled>a,.navbar-default .navbar-nav>.disabled>a:focus,.navbar-default .navbar-nav>.disabled>a:hover,fieldset[disabled] .navbar-default .btn-link:focus,fieldset[disabled] .navbar-default .btn-link:hover{
@@ -7307,26 +7307,26 @@ blockquote{
 }
 
 .navbar-default .navbar-toggle:focus,.navbar-default .navbar-toggle:hover{
-	border-color:#C0392C;
+	border-color:#3BAFDA;
 	background-color:#eee
 }
 
 .navbar-default .navbar-toggle .icon-bar{
-	background-color:#e74c3c
+	background-color:#4FC1E9
 }
 
 .navbar-default .navbar-collapse,.navbar-default .navbar-form{
-	border-color:#e74c3c
+	border-color:#4FC1E9
 }
 
 .navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover{
 	color:#fff;
-	background-color:#e74c3c
+	background-color:#4FC1E9
 }
 
 @media (max-width:767px){
 	.navbar-default .navbar-nav .open .dropdown-menu>.divider,.navbar-default .navbar-nav>li>a:focus,.navbar-default .navbar-nav>li>a:hover{
-		background-color:#c0392b
+		background-color:#3BAFDA
 	}
 
 	.navbar-default .navbar-nav .open .dropdown-menu>li>a{
@@ -7335,7 +7335,7 @@ blockquote{
 
 	.navbar-default .navbar-nav .open .dropdown-menu>.active>a,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus,.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover{
 		color:#fff;
-		background-color:#c0392b
+		background-color:#3BAFDA
 	}
 
 	.navbar-default .navbar-nav .open .dropdown-menu>.dropdown-header{
@@ -7343,7 +7343,7 @@ blockquote{
 	}
 
 	.navbar-default .navbar-nav .open .dropdown-menu>.disabled>a,.navbar-default .navbar-nav .open .dropdown-menu>.disabled>a:focus,.navbar-default .navbar-nav .open .dropdown-menu>.disabled>a:hover{
-		color:#C0392C
+		color:#3BAFDA
 	}
 
 }
@@ -7537,8 +7537,8 @@ a.list-group-item-warning.active,a.list-group-item-warning:focus,a.list-group-it
 
 .list-group-item-info{
 	color:#2fb593;
-	border-color:#e74c3c transparent transparent;
-	background-color:#c0392b
+	border-color:#4FC1E9 transparent transparent;
+	background-color:#3BAFDA
 }
 
 .list-group-item-info:first-child{
@@ -7554,8 +7554,8 @@ a.list-group-item-info:focus,a.list-group-item-info:hover{
 }
 
 a.list-group-item-info.active,a.list-group-item-info:focus,a.list-group-item-info:hover{
-	background-color:#e74c3c;
-	border-color:#c0392b transparent transparent
+	background-color:#4FC1E9;
+	border-color:#3BAFDA transparent transparent
 }
 
 .list-group-item-danger{
@@ -7801,13 +7801,13 @@ a.list-group-item-danger.active,a.list-group-item-danger:focus,a.list-group-item
 }
 
 .panel-info{
-	border-color:#e74c3c
+	border-color:#4FC1E9
 }
 
 .panel-info>.panel-heading{
 	color:#fff;
-	background-color:#e74c3c;
-	border-color:#e74c3c
+	background-color:#4FC1E9;
+	border-color:#4FC1E9
 }
 
 .panel-warning{
