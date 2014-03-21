@@ -3667,6 +3667,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .nav{
+	font-family: 'Raleway';
 	margin-bottom:0;
 	padding-left:0;
 	list-style:none
@@ -8446,6 +8447,7 @@ body{
 }
 
 .navbar-custom .nav li a{
+
 	display:block;
 	color:#50c1e9
 }
