@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Groove Basin</title>
+  <link rel="stylesheet" href="app.css">
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+<body>
+  <div id="nowplaying" class="ui-widget-content ui-corner-all" style="display: none">
+    <ul class="playback-btns ui-widget ui-helper-clearfix">
+      <li class="ui-state-default ui-corner-all hoverable prev">
+        <span class="ui-icon ui-icon-seek-prev"></span>
+      </li>
+      <li class="ui-state-default ui-corner-all hoverable toggle">
+        <span class="ui-icon ui-icon-pause"></span>
+      </li>
+      <li class="ui-state-default ui-corner-all hoverable stop">
+        <span class="ui-icon ui-icon-stop"></span>
+      </li>
+      <li class="ui-state-default ui-corner-all hoverable next">
+        <span class="ui-icon ui-icon-seek-next"></span>
+      </li>
+    </ul>
+    <div id="vol">
+      <span class="ui-icon ui-icon-volume-off"></span>
+      <div id="vol-slider"></div>
+      <span class="ui-icon ui-icon-volume-on"></span>
+    </div>
+    <div id="more-playback-btns">
+      <input class="jquery-button" type="checkbox" id="stream-btn"><label id="stream-btn-label" for="stream-btn">Stream</label>
+    </div>
+    <h1 id="track-display"></h1>
+    <div id="track-slider"></div>
+    <span class="time elapsed"></span>
+    <span class="time left"></span>
+    <div style="clear: both;"></div>
+  </div>
+  <div id="left-window" style="display: none">
+    <div id="tabs" class="ui-widget ui-corner-all">
+      <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-corner-all">
+        <li class="ui-state-default ui-corner-top ui-state-active library-tab"><span>Library</span></li>
+        <li class="ui-state-default ui-corner-top upload-tab"><span>Upload</span></li>
+        <li class="ui-state-default ui-corner-top settings-tab"><span>Settings</span></li>
+      </ul>
+    </div>
+    <div id="library-pane" class="ui-widget-content ui-corner-all">
+      <div class="window-header">
+        <input type="text" id="lib-filter" placeholder="filter">
+        <select id="organize">
+          <option selected="selected">Artist / Album / Song</option>
+        </select>
+      </div>
+      <div id="library">
+        <ul id="library-artists">
+        </ul>
+        <p id="library-no-items" class="ui-state-highlight ui-corner-all">
+          <span class="ui-icon ui-icon-info"></span>
+          <strong id="empty-library-message">loading...</strong>
+        </p>
+      </div>
+    </div>
+    <div id="upload-pane" class="ui-widget-content ui-corner-all" style="display: none">
+      <div id="upload">
+        <input id="upload-by-url" type="text" placeholder="Paste URL here">
+        <div id="upload-widget">
+          <input type="file" id="upload-input" multiple="multiple" placeholder="Drag and drop or click to browse">
+        </div>
+        <div>
+          Automatically queue uploads: <input class="jquery-button" type="checkbox" id="auto-queue-uploads"><label for="auto-queue-uploads">On</label>
+        </div>
+      </div>
+    </div>
+    <div id="settings-pane" class="ui-widget-content ui-corner-all" style="display: none">
+      <div id="settings">
+        <div class="section">
+          <h1>Authentication</h1>
+          <div id="settings-edit-password">
+            <input type="text" id="auth-password" placeholder="password" />
+            <button id="settings-auth-save">Save</button>
+            <button id="settings-auth-cancel">Cancel</button>
+          </div>
+          <div id="settings-show-password">
+            Using password <em id="password-display">...</em>
+            <button id="settings-auth-edit">Edit</button>
+            <button id="settings-auth-clear">Clear</button>
+          </div>
+          <h2>Permissions</h2>
+          <ul>
+            <li id="auth-perm-read">Reading the library, current playlist, and playback status</li>
+            <li id="auth-perm-add">Adding songs, loading playlists, and uploading songs.</li>
+            <li id="auth-perm-control">Control playback state, and manipulate playlists.</li>
+            <li id="auth-perm-admin">Deleting songs, updating tags, organizing library.</li>
+          </ul>
+        </div>
+        <div class="section">
+          <h1>Last.fm</h1>
+          <div id="settings-lastfm-in">
+            <p>
+              Authenticated as
+              <a id="settings-lastfm-user" href="#">...</a>.
+              <button id="lastfm-sign-out">Sign out</button>
+            </p>
+            <p>
+              Scrobbling is
+              <input class="jquery-button" type="checkbox" id="toggle-scrobble"><label for="toggle-scrobble">Off</label>
+            </p>
+          </div>
+          <div id="settings-lastfm-out">
+            <p>
+              <a id="lastfm-auth-url" href="#">Authenticate with Last.fm</a>
+            </p>
+          </div>
+        </div>
+        <div class="section">
+          <h1>About</h1>
+          <ul>
+            <li><a id="settings-stream-url" href="#">Stream URL</a></li>
+            <li><a href="http://github.com/andrewrk/groovebasin">GrooveBasin on GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="playlist-window" class="ui-widget-content ui-corner-all" style="display: none">
+    <div class="window-header">
+      <button class="jquery-button clear">Clear</button>
+      <button class="jquery-button shuffle">Shuffle</button>
+      <input class="jquery-button" type="checkbox" id="dynamic-mode"><label id="dynamic-mode-label" for="dynamic-mode">Dynamic Mode</label>
+      <input class="jquery-button" type="checkbox" id="pl-btn-repeat"><label id="pl-btn-repeat-label" for="pl-btn-repeat">Repeat: Off</label>
+    </div>
+    <div id="playlist">
+      <div class="header">
+        <span class="track">&nbsp;</span>
+        <span class="title">Title</span>
+        <span class="artist">Artist</span>
+        <span class="album">Album</span>
+        <span class="time">Time</span>
+      </div>
+      <div id="playlist-items">
+      </div>
+    </div>
+  </div>
+  <div style="clear: both"></div>
+  <div id="main-err-msg" class="ui-state-error ui-corner-all">
+    <p>
+      <span class="ui-icon ui-icon-alert"></span>
+      <div id="main-err-msg-text">Loading...</div>
+    </p>
+  </div>
+  <div id="shortcuts" style="display: none" tabindex="-1">
+    <h1>Playback</h1>
+    <dl>
+      <dt>Space</dt>
+      <dd>Toggle playback</dd>
+    </dl>
+    <dl>
+      <dt>Left <em>and</em> Right</dt>
+      <dd>Skip 10 seconds in the song</dd>
+    </dl>
+    <dl>
+      <dt>Shift</dt>
+      <dd>Hold to skip by 10% instead of 10 seconds</dd>
+    </dl>
+    <dl>
+      <dt>&lt; <em>or</em> Ctrl + Left <em>and</em> &gt; <em>or</em> Ctrl + Right</dt>
+      <dd>Skip track</dd>
+    </dl>
+    <dl>
+      <dt>- <em>and</em> +</dt>
+      <dd>Change volume</dd>
+    </dl>
+    <dl>
+      <dt>s</dt>
+      <dd>Toggle streaming</dd>
+    </dl>
+
+    <h1>Playlist</h1>
+    <dl>
+      <dt>Up <em>and</em> Down</dt>
+      <dd>Select the next song</dd>
+    </dl>
+    <dl>
+      <dt>Alt + Up <em>and</em> Alt + Down</dt>
+      <dd>Move selected tracks up or down one</dd>
+    </dl>
+    <dl>
+      <dt>Enter</dt>
+      <dd>Play the selected song</dd>
+    </dl>
+    <dl>
+      <dt>C</dt>
+      <dd>Clear playlist</dd>
+    </dl>
+    <dl>
+      <dt>H</dt>
+      <dd>Shuffle playlist</dd>
+    </dl>
+    <dl>
+      <dt>d</dt>
+      <dd>Toggle dynamic playlist mode</dd>
+    </dl>
+    <dl>
+      <dt>r</dt>
+      <dd>Change repeat state</dd>
+    </dl>
+    <dl>
+      <dt>Del</dt>
+      <dd>Remove selected songs from playlist</dd>
+    </dl>
+    <dl>
+      <dt>Shift + Del</dt>
+      <dd>Delete selected songs from library</dd>
+    </dl>
+
+    <h1>Navigation</h1>
+    <dl>
+      <dt>l</dt>
+      <dd>Switch to Library tab</dd>
+    </dl>
+    <dl>
+      <dt>u</dt>
+      <dd>Switch to Upload tab and focus the upload by URL box</dd>
+    </dl>
+
+    <h1>Library Search Box</h1>
+    <dl>
+      <dt>/</dt>
+      <dd>Focus library search</dd>
+    </dl>
+    <dl>
+      <dt>Esc</dt>
+      <dd>Clear filter. If filter is already clear, remove focus.</dd>
+    </dl>
+    <dl>
+      <dt>Enter</dt>
+      <dd>Queue all search results</dd>
+    </dl>
+    <dl>
+      <dt>Down</dt>
+      <dd>Select the first search result</dd>
+    </dl>
+
+    <h1>Library</h1>
+    <dl>
+      <dt>Up <em>and</em> Down</dt>
+      <dd>Select the next item up or down</dd>
+    </dl>
+    <dl>
+      <dt>Left <em>and</em> Right</dt>
+      <dd>Expand or collapse selected item</dd>
+    </dl>
+    <dl>
+      <dt>Enter</dt>
+      <dd>Queue selected items<dd>
+    </dl>
+    <dl>
+      <dt>Del</dt>
+      <dd>Delete selected songs from library</dd>
+    </dl>
+
+    <h1>Miscellaneous</h1>
+    <dl>
+      <dt>?</dt>
+      <dd>Displays keyboard shortcuts</dd>
+    </dl>
+    <dl>
+      <dt>Esc</dt>
+      <dd>Close menu, cancel drag, clear selection</dd>
+    </dl>
+    <dl>
+      <dt>Alt</dt>
+      <dd>Hold when right clicking to get the normal browser menu</dd>
+    </dl>
+    <dl>
+      <dt>Shift</dt>
+      <dd>Hold while queuing to queue next<dd>
+    </dl>
+    <dl>
+      <dt>Alt</dt>
+      <dd>Hold while queuing to queue in random order<dd>
+    </dl>
+    <dl>
+      <dt>Ctrl</dt>
+      <dd>Hold to select multiple items<dd>
+    </dl>
+    <dl>
+      <dt>Shift</dt>
+      <dd>Hold while selecting to select all items in between<dd>
+    </dl>
+  </div>
+  <div id="edit-tags" style="display: none">
+    <input type="checkbox" id="edit-tag-multi-name">
+    <label accesskey="i">T<span class="accesskey">i</span>tle: <input id="edit-tag-name"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-track">
+    <label accesskey="k">Trac<span class="accesskey">k</span> Number: <input id="edit-tag-track"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-file">
+    <label>Filename: <input id="edit-tag-file"></label><br>
+    <hr>
+
+    <input type="checkbox" id="edit-tag-multi-artistName">
+    <label accesskey="a"><span class="accesskey">A</span>rtist: <input id="edit-tag-artistName"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-composerName">
+    <label accesskey="c"><span class="accesskey">C</span>omposer: <input id="edit-tag-composerName"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-performerName">
+    <label>Performer: <input id="edit-tag-performerName"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-genre">
+    <label accesskey="g"><span class="accesskey">G</span>enre: <input id="edit-tag-genre"></label><br>
+    <hr>
+
+    <input type="checkbox" id="edit-tag-multi-albumName">
+    <label accesskey="b">Al<span class="accesskey">b</span>um: <input id="edit-tag-albumName"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-albumArtistName">
+    <label>Album Artist: <input id="edit-tag-albumArtistName"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-trackCount">
+    <label>Track Count: <input id="edit-tag-trackCount"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-year">
+    <label accesskey="y"><span class="accesskey">Y</span>ear: <input id="edit-tag-year"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-disc">
+    <label accesskey="d"><span class="accesskey">D</span>isc Number: <input id="edit-tag-disc"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-discCount">
+    <label>Disc Count: <input id="edit-tag-discCount"></label><br>
+
+    <input type="checkbox" id="edit-tag-multi-compilation">
+    <label accesskey="m">Co<span class="accesskey">m</span>pilation: <input type="checkbox" id="edit-tag-compilation"></label><br>
+    <hr>
+
+    <div style="float: right">
+      <button id="edit-tags-ok" accesskey="v">Sa<span class="accesskey">v</span>e &amp; Close</button>
+      <button id="edit-tags-cancel">Cancel</button>
+    </div>
+    <button id="edit-tags-prev" type="button" accesskey="p"><span class="accesskey">P</span>revious</button>
+    <button id="edit-tags-next" type="button" accesskey="n"><span class="accesskey">N</span>ext</button>
+    <label accesskey="r" id="edit-tags-per-label"><input id="edit-tags-per" type="checkbox">Pe<span class="accesskey">r</span> Track</label>
+  </div>
+  <ul id="menu-playlist" style="display: none">
+    <li><a href="#" class="remove">Remove</a></li>
+    <li><a href="#" class="delete">Delete From Library</a></li>
+    <li><a href="#" class="download" target="_blank">Download</a></li>
+    <li><a href="#" class="edit-tags">Edit Tags</a></li>
+  </ul>
+  <ul id="menu-library" style="display: none">
+    <li><a href="#" class="queue">Queue</a></li>
+    <li><a href="#" class="queue-next">Queue Next</a></li>
+    <li><a href="#" class="queue-random">Queue in Random Order</a></li>
+    <li><a href="#" class="queue-next-random">Queue Next in Random Order</a></li>
+    <li><a href="#" class="delete">Delete</a></li>
+    <li><a href="#" class="download" target="_blank">Download</a></li>
+    <li><a href="#" class="edit-tags menu-item-last">Edit Tags</a></li>
+  </ul>
+  <script src="vendor/jquery-2.1.0.min.js"></script>
+  <script src="vendor/jquery-ui-1.10.4.custom.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
