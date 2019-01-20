@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Grid Simulator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Variables</h2>
+      <div class="form-row">
+        <div class="col">
+          <label for="pageWidth">Page width (px):</label>
+          <input type="number" class="form-control" id="pageWidth" name="pageWidth" min="10" max="1366" value="1280" oninput="canvasResizing()">
+        </div>
+        <div class="col">
+          <label for="pageHeight">Page height (px):</label>
+          <input type="number" class="form-control" id="pageHeight" name="pageHeight" min="10" max="5000" value="720" oninput="canvasResizing()">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <label for="elemWidth">Element width (px):</label>
+          <input type="number" class="form-control" id="elemWidth" name="elemWidth" min="10" max="1366" value="10" oninput="drawGrid()">
+        </div>
+        <div class="col">
+          <label for="elemHeight">Element height (px):</label>
+          <input type="number" class="form-control" id="elemHeight" name="elemHeight" min="10" max="5000" value="10" oninput="drawGrid()">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <label for="gridWidth">Number of cols:</label>
+          <input type="number" class="form-control" id="gridWidth" name="gridWidth" min="1" max="10" value="1" oninput="drawGrid()">
+        </div>
+        <div class="col">
+          <label for="gridHeight">Number of rows:</label>
+          <input type="number" class="form-control" id="gridHeight" name="gridHeight" min="1" max="20" value="1" oninput="drawGrid()">
+        </div>
+      </div>
+
+      <canvas width="1280" height="720" id="canvas"></canvas>
+
+      <script>
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+        context.fillStyle = "gray";
+
+        let elemWidthInput = document.getElementById("elemWidth");
+        let elemHeightInput = document.getElementById("elemHeight");
+        let pageWidth, pageHeight = undefined;
+        let elemWidth, elemHeight = undefined;
+        let cols, rows = undefined;
+
+        function canvasResizing() {
+          pageWidth = document.getElementById("pageWidth").value;
+          pageHeight = document.getElementById("pageHeight").value
+          // console.log("///");
+          // console.log("New width is "+pageWidth+", new height is "+pageHeight);
+          // console.log("///");
+          canvas.setAttribute("width", pageWidth);
+          canvas.setAttribute("height", pageHeight);
+          elemWidthInput.setAttribute("max", pageWidth);
+          elemHeightInput.setAttribute("max", pageHeight);
+        }
+        function drawGrid() {
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.fillStyle = "gray";
+          context.font = "12px Segoe UI, Roboto, serif";
+          //canvasResizing();
+
+          pageWidth = parseInt(document.getElementById("pageWidth").value);
+          pageHeight = parseInt(document.getElementById("pageHeight").value);
+          elemWidth = parseInt(elemWidthInput.value);
+          elemHeight = parseInt(elemHeightInput.value);
+          cols = parseInt(document.getElementById("gridWidth").value);
+          rows = parseInt(document.getElementById("gridHeight").value);
+
+          h_spacing = (pageWidth - (elemWidth * cols)) / (cols+1);
+          v_spacing = (pageHeight - (elemHeight * rows)) / (rows+1);
+
+          let x, y = undefined;
+
+          // console.log("---");
+          // console.log("Canvas dimensions are: "+pageWidth+", "+pageHeight);
+          // console.log(cols+" cols, "+rows+" rows");
+          // console.log("Element dimensions are: "+elemWidth+", "+elemHeight);
+          // console.log("Horizontal spacing is "+h_spacing+", vertical spacing is "+v_spacing);
+
+          if (h_spacing < 0 || v_spacing < 0) {
+            context.fillText("Elements could not fit in canvas.", 20, 20);
+          } else {
+            for (var i = 0; i < cols; i++) {
+              for (var j = 0; j < rows; j++) {
+                x = h_spacing + (i * (h_spacing + elemWidth));
+                y = v_spacing + (j * (v_spacing + elemHeight));
+                // console.log("i: "+i+", j: "+j);
+                // console.log("Drawing a rect with coordinates: ("+x+", "+y+")");
+                context.fillRect(x, y, elemWidth, elemHeight);
+                context.fillStyle = "black";
+                context.fillText("("+x+", "+y+")", x + (elemWidth/4), y + (elemHeight/4));
+                context.fillStyle = "gray";
+              }
+            }
+          }
+
+          // console.log("---");
+
+          //context.fillRect(10, 10, 100, 50);
+          //context.fillRect(20, 20, 100, 50);
+        }
+      </script>
+    </div>
+  </body>
+</html>
