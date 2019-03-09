@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tea Random Pick</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Your choice is:</h1>
+    <div><h3 id="output"></h3></div>
+  </body>
+  <script type="text/javascript">
+    var items = [
+      "Limón Twist",
+      "Limón y Frambuesa",
+      "Manzanilla, Miel y Vainilla",
+      "Earl Grey",
+      "Mate Cocido",
+      "Lady Grey",
+      "Indian Chai",
+      "Té Verde y Menta"
+    ];
+    var choice = items[items.length * Math.random() | 0];
+
+    document.getElementById("output").innerHTML = choice;
+  </script>
+</html>
