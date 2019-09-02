@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random list item picker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container" style="padding: 20px;">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile02">
+                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+            </div>
+        </div>
+        <h3 id="choice"></h3>
+        <output id="fileInfo"></output>
+    </div>
+</body>
+
+<script>
+    function handleFileSelect(evt) {
+        let files = evt.target.files; // FileList object
+
+        // files is a FileList of File objects. List some properties.
+        let output = [];
+        let f = files[0];
+        output.push("<strong>", escape(f.name), "</strong>", " - ");
+        if ((!f.type.includes('json'))) {
+            output.push("<strong class='text-danger'>Invalid file.</strong>");
+        } else {
+            try {
+                let r = new FileReader();
+                r.onload = function(e) { 
+                    let contents = JSON.parse(e.target.result);
+                    let choice = contents.items[contents.items.length * Math.random() | 0];
+                    document.getElementById("choice").innerHTML = "Your choice is: " + choice;
+                    output.push(contents.items.length === 1 ? "1 item" : contents.items.length + " items");
+                    output.push("<ul>");
+                    for (var i = 0; i < contents.items.length; i++) {
+                        output.push("<li>", contents.items[i], "</li>");
+                    }
+                    output.push("</ul");
+                    document.getElementById('fileInfo').innerHTML = '<br>' + output.join('') + '<br>';
+                };
+                r.readAsText(f);
+            } catch(err) {
+                output.push("<p><strong class='text-danger'>Error reading file."+ err +"</strong></p>");
+            }
+        }
+        /*for (var i = 0, f; f = files[i]; i++) {
+        output.push('<strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                    f.size, ' bytes, last modified: ',
+                    f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a');
+        }*/
+    }
+
+    document.getElementById('inputGroupFile02').addEventListener('change', handleFileSelect, false);
+</script>
+</html>
